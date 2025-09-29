@@ -1,0 +1,62 @@
+@use 'variables' as *;
+
+
+html,
+body {
+  max-width: 100vw;
+  overflow: hidden;
+
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.5;
+  color: $text-gray;
+  background-color: $bg-dark;
+
+
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background: none;
+}
+
+
+svg {
+  width: 100%;
+  height: 100%;
+}
