@@ -32,7 +32,7 @@ export default function WelcomeModal() {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <h1 className={styles.title}>Добро пожаловать в Фото Будку!</h1>
+        <h1 className={styles.title}>Добро пожаловать <br/>в<span> Фото Будку!</span></h1>
         <p className={styles.subtitle}>
           Перед тем как мы начнем, один вопрос, пожалуйста:
         </p>
