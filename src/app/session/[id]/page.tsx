@@ -56,5 +56,5 @@ export default function SessionRoute() {
     return null;
   }
 
-  return <CameraPage sessionId={session.sessionId} targetPhotos={session.targetPhotos} />;
+  return <CameraPage sessionId={session.sessionId} targetPhotos={session.photoCount} />;
 }

@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import usePhotoUpload from '@/hooks/usePhotoUpload';
-import CameraCapture from '@/components/CameraCapture/CameraCapture';
+import useCamera from '@/hooks/useCamera';
 import ProgressIndicator from '@/components/ProgressIndicator/ProgressIndicator';
 import Countdown from '@/components/Countdown/Countdown';
 import styles from './CameraPage.module.scss';
@@ -14,37 +14,93 @@ type Props = {
 };
 
 export default function CameraPage({ sessionId, targetPhotos }: Props) {
+  console.log(targetPhotos)
   const router = useRouter();
   const { uploadPhoto, isUploading, uploadError, uploadedCount } = usePhotoUpload(sessionId);
+  const { videoRef, stream, error, isLoading, startCamera, capturePhoto } = useCamera();
   const [showCountdown, setShowCountdown] = useState(false);
-  const [pendingPhoto, setPendingPhoto] = useState<string | null>(null);
+  const [isSessionStarted, setIsSessionStarted] = useState(false);
 
-  const handleCapture = useCallback((photo: string) => {
-    setPendingPhoto(photo);
+  useEffect(() => {
+    startCamera();
+  }, [startCamera]);
+
+  const startPhotoSession = useCallback(() => {
+    setIsSessionStarted(true);
     setShowCountdown(true);
   }, []);
 
   const handleCountdownComplete = useCallback(async () => {
     setShowCountdown(false);
 
-    if (!pendingPhoto) return;
+    const photo = capturePhoto();
+    if (!photo) return;
 
-    const result = await uploadPhoto(pendingPhoto);
-    setPendingPhoto(null);
+    const result = await uploadPhoto(photo);
 
-    if (result && uploadedCount + 1 >= targetPhotos) {
-      router.push(`/result/${sessionId}`);
+    if (result) {
+      const newCount = uploadedCount + 1;
+
+      if (newCount >= targetPhotos) {
+        router.push(`/result/${sessionId}`);
+      } else {
+        setTimeout(() => {
+          setShowCountdown(true);
+        }, 1000);
+      }
     }
-  }, [pendingPhoto, uploadPhoto, uploadedCount, targetPhotos, sessionId, router]);
+  }, [capturePhoto, uploadPhoto, uploadedCount, targetPhotos, sessionId, router]);
+
+  if (isLoading) {
+    return (
+      <div className={styles.container}>
+        <p className={styles.message}>Загрузка камеры...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.container}>
+        <p className={styles.error}>{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
       <ProgressIndicator current={uploadedCount + 1} total={targetPhotos} />
 
-      <CameraCapture
-        onCapture={handleCapture}
-        isCapturing={isUploading || showCountdown}
-      />
+      <div className={styles.cameraContainer}>
+        <div className={styles.videoWrapper}>
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted
+            className={styles.video}
+          />
+        </div>
+
+        {!isSessionStarted && (
+          <div className={styles.controls}>
+            <p className={styles.instruction}>Нажмите кнопку <br/>что бы начать серию снимков</p>
+            <button
+              onClick={startPhotoSession}
+              disabled={!stream}
+              className={styles.captureButton}
+            >
+              ФОТО
+            </button>
+          </div>
+        )}
+
+        {isSessionStarted && !showCountdown && (
+          <div className={styles.controls}>
+            <p className={styles.instruction}>Обработка...</p>
+          </div>
+        )}
+      </div>
 
       {uploadError && <p className={styles.error}>{uploadError}</p>}
 

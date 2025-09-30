@@ -9,11 +9,18 @@ type Props = {
 
 export default function Countdown({ onComplete }: Props) {
   const [count, setCount] = useState(3);
+  const [showFlash, setShowFlash] = useState(false);
 
   useEffect(() => {
     if (count === 0) {
-      onComplete();
-      return;
+      setShowFlash(true);
+
+      const flashTimer = setTimeout(() => {
+        setShowFlash(false);
+        onComplete();
+      }, 300);
+
+      return () => clearTimeout(flashTimer);
     }
 
     const timer = setTimeout(() => {
@@ -23,11 +30,11 @@ export default function Countdown({ onComplete }: Props) {
     return () => clearTimeout(timer);
   }, [count, onComplete]);
 
-  if (count === 0) return null;
+  if (count === 0 && !showFlash) return null;
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.number}>{count}</div>
+    <div className={`${styles.overlay} ${showFlash ? styles.flash : ''}`}>
+      {!showFlash && <div className={styles.number}>{count}</div>}
     </div>
   );
 }

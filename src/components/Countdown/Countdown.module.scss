@@ -11,6 +11,11 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+
+  &.flash {
+    background: #ffffff;
+    animation: flashEffect 0.3s ease-out;
+  }
 }
 
 .number {
@@ -40,5 +45,17 @@
   100% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes flashEffect {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
