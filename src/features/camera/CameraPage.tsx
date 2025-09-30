@@ -20,9 +20,6 @@ export default function CameraPage({ sessionId, targetPhotos }: Props) {
   const [showCountdown, setShowCountdown] = useState(false);
   const [isSessionStarted, setIsSessionStarted] = useState(false);
 
-  useEffect(() => {
-    startCamera();
-  }, [startCamera]);
 
   const startPhotoSession = useCallback(() => {
     setIsSessionStarted(true);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useCallback } from 'react';
+import {useRef, useState, useCallback, useEffect} from 'react';
 
 export default function useCamera() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -57,7 +57,15 @@ export default function useCamera() {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [videoRef]);
+
+  useEffect(() => {
+    if (videoRef.current && !stream && !isLoading) {
+      console.log("0. Обнаружен видеоэлемент. Инициирую старт камеры.");
+      startCamera();
+    }
+    // Запускаем этот хук при первом монтировании и когда videoRef.current меняется (с null на элемент)
+  }, [videoRef.current, stream, isLoading, startCamera]);
 
   const stopCamera = useCallback(() => {
     if (stream) {
