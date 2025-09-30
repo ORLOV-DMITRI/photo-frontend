@@ -1,0 +1,95 @@
+// ============================================
+// PHOTO BOOTH - DYNAMIC THEME SYSTEM
+// ============================================
+// Палитры меняются в зависимости от выбора настроения пользователя
+// Используем CSS переменные для динамической смены тем
+
+// --------------------------------------------
+// DEFAULT THEME (до выбора пользователем)
+// --------------------------------------------
+:root {
+  --primary: #FF6B9D;
+  --secondary: #FFC75F;
+  --accent: #845EC2;
+  --success: #00C9A7;
+
+  --bg-dark: #1A1A2E;
+  --bg-card: #2A2A40;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8B8D1;
+
+  --gradient-primary: linear-gradient(135deg, #FF6B9D 0%, #FFC75F 100%);
+  --gradient-accent: linear-gradient(135deg, #845EC2 0%, #FF6B9D 100%);
+}
+
+// --------------------------------------------
+// РАДОСТЬ (JOY) 🌞 - Теплые солнечные цвета
+// --------------------------------------------
+[data-theme="joy"] {
+  --primary: #FFD93D;
+  --secondary: #FFA726;
+  --accent: #FF6B9D;
+  --success: #00C9A7;
+
+  --bg-dark: #1A1A2E;
+  --bg-card: #2A2A40;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8B8D1;
+
+  --gradient-primary: linear-gradient(135deg, #FFD93D 0%, #FFA726 100%);
+  --gradient-accent: linear-gradient(135deg, #FFA726 0%, #FF6B9D 100%);
+}
+
+// --------------------------------------------
+// ВЕСЕЛЬЕ (FUN) 🎉 - Яркие party-цвета
+// --------------------------------------------
+[data-theme="fun"] {
+  --primary: #FF5E78;
+  --secondary: #7C4DFF;
+  --accent: #00D9FF;
+  --success: #00C9A7;
+
+  --bg-dark: #1A1A2E;
+  --bg-card: #2A2A40;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8B8D1;
+
+  --gradient-primary: linear-gradient(135deg, #FF5E78 0%, #7C4DFF 100%);
+  --gradient-accent: linear-gradient(135deg, #7C4DFF 0%, #00D9FF 100%);
+}
+
+// --------------------------------------------
+// ПРИКЛЮЧЕНИЕ (ADVENTURE) 🚀 - Энергичные активные цвета
+// --------------------------------------------
+[data-theme="adventure"] {
+  --primary: #00C9A7;
+  --secondary: #FF6B35;
+  --accent: #4A90E2;
+  --success: #00C9A7;
+
+  --bg-dark: #1A1A2E;
+  --bg-card: #2A2A40;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8B8D1;
+
+  --gradient-primary: linear-gradient(135deg, #00C9A7 0%, #FF6B35 100%);
+  --gradient-accent: linear-gradient(135deg, #4A90E2 0%, #00C9A7 100%);
+}
+
+// --------------------------------------------
+// ПАМЯТЬ (MEMORY) 📸 - Винтажные ностальгические цвета
+// --------------------------------------------
+[data-theme="memory"] {
+  --primary: #B983FF;
+  --secondary: #FFD93D;
+  --accent: #FF9B9B;
+  --success: #00C9A7;
+
+  --bg-dark: #1A1A2E;
+  --bg-card: #2A2A40;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8B8D1;
+
+  --gradient-primary: linear-gradient(135deg, #B983FF 0%, #FFD93D 100%);
+  --gradient-accent: linear-gradient(135deg, #B983FF 0%, #FF9B9B 100%);
+}
