@@ -12,10 +12,10 @@ type MoodOption = {
 };
 
 const moods: MoodOption[] = [
-  { value: 'joy', label: 'Радость', emoji: '🌞', description: 'Солнечные теплые цвета' },
-  { value: 'fun', label: 'Веселье', emoji: '🎉', description: 'Яркие party-цвета' },
-  { value: 'adventure', label: 'Приключение', emoji: '🚀', description: 'Энергичные оттенки' },
-  { value: 'memory', label: 'Память', emoji: '📸', description: 'Винтажная ностальгия' },
+  { value: 'joy', label: 'Радостное', emoji: '🌞', description: 'Солнечные теплые цвета' },
+  { value: 'fun', label: 'Веселое', emoji: '🎉', description: 'Яркие party-цвета' },
+  { value: 'adventure', label: 'Азартное', emoji: '🚀', description: 'Энергичные оттенки' },
+  { value: 'memory', label: 'Ностальгическое', emoji: '📸', description: 'Винтажная ностальгия' },
 ];
 
 export default function WelcomeModal() {
@@ -36,7 +36,7 @@ export default function WelcomeModal() {
         <p className={styles.subtitle}>
           Перед тем как мы начнем, один вопрос, пожалуйста:
         </p>
-        <p className={styles.question}>Жизнь для вас это...</p>
+        <p className={styles.question}>Какое у вас настроение сейчас?</p>
 
         <div className={styles.options}>
           {moods.map((mood) => (
@@ -47,7 +47,6 @@ export default function WelcomeModal() {
             >
               <span className={styles.emoji}>{mood.emoji}</span>
               <span className={styles.label}>{mood.label}</span>
-              <span className={styles.description}>{mood.description}</span>
             </button>
           ))}
         </div>

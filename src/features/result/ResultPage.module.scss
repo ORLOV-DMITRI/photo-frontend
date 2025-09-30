@@ -1,0 +1,179 @@
+@use '../../styles/variables' as *;
+
+.container {
+  margin-top: 50px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background: var(--bg-dark);
+
+  @include sm {
+    padding: 32px 16px;
+  }
+
+  @include xs {
+    padding: 24px 16px;
+  }
+}
+
+.title {
+  font-family: SoyuzGrotesk, sans-serif;
+  font-weight: 700;
+  font-size: 64px;
+  color: var(--primary);
+  margin: 0 0 40px 0;
+  text-align: center;
+
+  @include sm {
+    font-size: 48px;
+    margin-bottom: 32px;
+  }
+
+  @include xs {
+    font-size: 40px;
+    margin-bottom: 24px;
+  }
+}
+
+.message {
+  font-family: SoyuzGrotesk, sans-serif;
+  font-size: 20px;
+  color: var(--text-primary);
+  margin: 0 0 20px 0;
+  text-align: center;
+
+  @include xs {
+    font-size: 18px;
+  }
+}
+
+.error {
+  font-family: SoyuzGrotesk, sans-serif;
+  font-size: 20px;
+  color: #FF6B6B;
+  padding: 16px;
+  background: rgba(255, 107, 107, 0.1);
+  margin: 0 0 20px 0;
+  text-align: center;
+  max-width: 640px;
+
+  @include xs {
+    font-size: 16px;
+    padding: 12px;
+  }
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 640px;
+  margin-bottom: 40px;
+
+  @include xs {
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+}
+
+.photoWrapper {
+  width: 100%;
+  overflow: hidden;
+  border: 3px solid var(--primary);
+  animation: revealPhoto 0.8s ease-out;
+
+  @include xs {
+    border-width: 2px;
+  }
+}
+
+.photo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@keyframes revealPhoto {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 640px;
+
+  @include xs {
+    gap: 12px;
+  }
+}
+
+.button {
+  font-family: SoyuzGrotesk, sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  padding: 20px 40px;
+  background: var(--primary);
+  color: var(--bg-dark);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+
+  @include hover {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @include sm {
+    font-size: 20px;
+    padding: 18px 32px;
+  }
+
+  @include xs {
+    font-size: 18px;
+    padding: 16px 24px;
+  }
+}
+
+.buttonSecondary {
+  font-family: SoyuzGrotesk, sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  padding: 20px 40px;
+  background: transparent;
+  color: var(--text-primary);
+  border: 3px solid var(--primary);
+  cursor: pointer;
+  width: 100%;
+
+  @include hover {
+    background: var(--primary);
+    color: var(--bg-dark);
+  }
+
+  @include sm {
+    font-size: 20px;
+    padding: 18px 32px;
+  }
+
+  @include xs {
+    font-size: 18px;
+    padding: 16px 24px;
+    border-width: 2px;
+  }
+}

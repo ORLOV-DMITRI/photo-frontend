@@ -29,3 +29,11 @@ export type CreateSessionRequest = {
 };
 
 export type CreateSessionResponse = ApiResponse<PhotoSession>;
+
+export type FilterType = 'classic' | 'vintage' | 'sepia' | 'blackwhite';
+
+export type BatchApplyFilterRequest = {
+  filter: FilterType;
+};
+
+export type BatchApplyFilterResponse = ApiResponse<Photo[]>;

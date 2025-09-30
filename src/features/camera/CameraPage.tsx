@@ -14,7 +14,6 @@ type Props = {
 };
 
 export default function CameraPage({ sessionId, targetPhotos }: Props) {
-  console.log(targetPhotos)
   const router = useRouter();
   const { uploadPhoto, isUploading, uploadError, uploadedCount } = usePhotoUpload(sessionId);
   const { videoRef, stream, error, isLoading, startCamera, capturePhoto } = useCamera();

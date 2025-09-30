@@ -21,7 +21,6 @@ export default function StartPage() {
 
     try {
       const session = await sessionService.createSession(selectedCount);
-      console.log(session )
       router.push(`/session/${session.sessionId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Не удалось создать сессию');
