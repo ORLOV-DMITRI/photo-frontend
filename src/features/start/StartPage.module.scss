@@ -1,0 +1,158 @@
+@use '../../styles/variables' as *;
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: var(--bg-dark);
+
+  @include xs {
+    padding: 20px 16px;
+  }
+}
+
+.title {
+  font-family: SoyuzGrotesk, sans-serif;
+  font-weight: 700;
+  font-size: 64px;
+  color: var(--primary);
+  margin: 0 0 60px 0;
+  text-align: center;
+
+  @include sm {
+    font-size: 48px;
+    margin-bottom: 40px;
+  }
+
+  @include xs {
+    font-size: 40px;
+    margin-bottom: 32px;
+  }
+}
+
+.content {
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+
+  @include sm {
+    gap: 32px;
+  }
+
+  @include xs {
+    gap: 24px;
+  }
+}
+
+.question {
+  font-family: SoyuzGrotesk, sans-serif;
+  font-size: 24px;
+  color: var(--text-primary);
+  margin: 0;
+  text-align: center;
+
+  @include sm {
+    font-size: 20px;
+  }
+
+  @include xs {
+    font-size: 18px;
+  }
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+
+  @include xs {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+.option {
+  font-family: SoyuzGrotesk, sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  padding: 32px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 3px solid transparent;
+  cursor: pointer;
+
+  @include hover {
+    border-color: var(--primary);
+  }
+
+  &.selected {
+    background: var(--primary);
+    color: var(--bg-dark);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @include sm {
+    font-size: 28px;
+    padding: 24px;
+  }
+
+  @include xs {
+    font-size: 24px;
+    padding: 20px;
+  }
+}
+
+.error {
+  font-family: SoyuzGrotesk, sans-serif;
+  font-size: 16px;
+  color: #FF6B6B;
+  margin: 0;
+  text-align: center;
+
+  @include xs {
+    font-size: 14px;
+  }
+}
+
+.startButton {
+  font-family: SoyuzGrotesk, sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  padding: 20px 60px;
+  background: var(--primary);
+  color: var(--bg-dark);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 400px;
+
+  @include hover {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @include sm {
+    font-size: 20px;
+    padding: 18px 48px;
+  }
+
+  @include xs {
+    font-size: 18px;
+    padding: 16px 40px;
+  }
+}

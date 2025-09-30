@@ -1,0 +1,44 @@
+@use '../../styles/variables' as *;
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.number {
+  font-family: SoyuzGrotesk, sans-serif;
+  font-weight: 700;
+  font-size: 200px;
+  color: var(--primary);
+  animation: pulse 1s ease-in-out;
+
+  @include sm {
+    font-size: 160px;
+  }
+
+  @include xs {
+    font-size: 120px;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

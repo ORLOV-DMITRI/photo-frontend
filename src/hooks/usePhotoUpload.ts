@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import api from '@/lib/settings/axios';
 import axios from 'axios';
 import type { ApiResponse, Photo } from '@/types/api';
 
@@ -19,8 +20,8 @@ export default function usePhotoUpload(sessionId: string) {
       const formData = new FormData();
       formData.append('photo', blob, `photo-${Date.now()}.jpg`);
 
-      const response = await axios.post<ApiResponse<Photo>>(
-        `http://localhost:5000/api/photos/upload/${sessionId}`,
+      const response = await api.post<ApiResponse<Photo>>(
+        `/api/photos/upload/${sessionId}`,
         formData,
         {
           headers: {

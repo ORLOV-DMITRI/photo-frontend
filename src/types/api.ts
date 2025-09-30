@@ -6,7 +6,7 @@ export type ApiResponse<T = any> = {
 };
 
 export type PhotoSession = {
-  id: string;
+  sessionId: string;
   targetPhotos: number;
   status: 'active' | 'completed';
   createdAt: string;
@@ -25,7 +25,7 @@ export type Photo = {
 };
 
 export type CreateSessionRequest = {
-  targetPhotos: number;
+  photoCount: number;
 };
 
 export type CreateSessionResponse = ApiResponse<PhotoSession>;
