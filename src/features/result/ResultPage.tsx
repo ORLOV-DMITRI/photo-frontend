@@ -19,6 +19,7 @@ export default function ResultPage({ sessionId }: Props) {
   const [visibleCount, setVisibleCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isApplyingFilter, setIsApplyingFilter] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
 
@@ -68,8 +69,11 @@ export default function ResultPage({ sessionId }: Props) {
 
   const handleDownload = async () => {
     try {
+      setIsDownloading(true);
       await photoService.downloadStrip(sessionId);
+      setIsDownloading(false);
     } catch (err) {
+      setIsDownloading(false);
       setError(err instanceof Error ? err.message : 'Ошибка скачивания');
     }
   };
@@ -122,8 +126,12 @@ export default function ResultPage({ sessionId }: Props) {
 
       {visibleCount === photos.length && !isApplyingFilter && (
         <div className={styles.actions}>
-          <button onClick={handleDownload} className={styles.button}>
-            СКАЧАТЬ ФОТОЛЕНТУ
+          <button
+            onClick={handleDownload}
+            className={styles.button}
+            disabled={isDownloading}
+          >
+            {isDownloading ? 'ЗАГРУЗКА...' : 'СКАЧАТЬ ФОТОЛЕНТУ'}
           </button>
           <button onClick={handleStartOver} className={styles.buttonSecondary}>
             НАЧАТЬ ЗАНОВО

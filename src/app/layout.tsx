@@ -31,7 +31,6 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider>
           <WelcomeModal />
-          <ThemeToggle />
           {children}
         </ThemeProvider>
       </body>
