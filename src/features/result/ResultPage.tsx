@@ -14,7 +14,7 @@ type Props = {
 const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 export default function ResultPage({ sessionId }: Props) {
   const router = useRouter();
-  const { theme } = useTheme();
+  const { theme, resetTheme } = useTheme();
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [visibleCount, setVisibleCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -79,6 +79,7 @@ export default function ResultPage({ sessionId }: Props) {
   };
 
   const handleStartOver = () => {
+    resetTheme(); // Сбрасываем тему чтобы показать WelcomeModal снова
     router.push('/');
   };
 

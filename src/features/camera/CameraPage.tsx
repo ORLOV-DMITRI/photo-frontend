@@ -65,7 +65,7 @@ export default function CameraPage({ sessionId, targetPhotos }: Props) {
 
   return (
     <div className={styles.container}>
-      <ProgressIndicator current={uploadedCount + 1} total={targetPhotos} />
+      <ProgressIndicator current={Math.min(uploadedCount + 1, targetPhotos)} total={targetPhotos} />
 
       <div className={styles.cameraContainer}>
         <div className={styles.videoWrapper}>
