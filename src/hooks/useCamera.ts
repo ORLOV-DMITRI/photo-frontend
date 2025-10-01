@@ -9,26 +9,20 @@ export default function useCamera() {
   const [isLoading, setIsLoading] = useState(false);
 
   const startCamera = useCallback(async () => {
-    console.log('1. Запуск startCamera...');
     setIsLoading(true);
     setError(null);
 
     try {
-      console.log('2. Попытка вызвать navigator.mediaDevices.getUserMedia...');
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'user', width: 1280, height: 720 },
         audio: false,
       });
 
-      console.log('3. Доступ к камере получен (MediaStream):', mediaStream);
 
       if (videoRef.current) {
-        console.log('4. Присвоение потока элементу <video>.');
-
         videoRef.current.srcObject = mediaStream;
 
         videoRef.current.onloadedmetadata = () => {
-          console.log('5. Метаданные видео загружены. Вызов play().');
           videoRef.current?.play().catch(e => {
             console.error('6. Ошибка при вызове video.play():', e);
             setError('Не удалось запустить воспроизведение видео. Проверьте разрешения автозапуска.');
@@ -40,7 +34,6 @@ export default function useCamera() {
 
 
       setStream(mediaStream);
-      console.log('7. Камера должна отображаться.');
 
     } catch (err) {
       if (err instanceof Error) {
@@ -61,19 +54,15 @@ export default function useCamera() {
 
   useEffect(() => {
     if (videoRef.current && !stream && !isLoading) {
-      console.log("0. Обнаружен видеоэлемент. Инициирую старт камеры.");
       startCamera();
     }
-    // Запускаем этот хук при первом монтировании и когда videoRef.current меняется (с null на элемент)
   }, [videoRef.current, stream, isLoading, startCamera]);
 
   useEffect(() => {
     if (videoRef.current && stream && !videoRef.current.srcObject) {
-      console.log('→ Присваиваем stream элементу video (отложенно)');
       videoRef.current.srcObject = stream;
 
       videoRef.current.onloadedmetadata = () => {
-        console.log('→ Метаданные загружены, запуск play()');
         videoRef.current?.play().catch(e => {
           console.error('→ Ошибка play():', e);
           setError('Не удалось запустить воспроизведение видео. Проверьте разрешения автозапуска.');
@@ -97,13 +86,44 @@ export default function useCamera() {
 
     const video = videoRef.current;
     const canvas = document.createElement('canvas');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+
+    // Aspect ratio для портретной ориентации (можно менять для экспериментов)
+    // 3:4 = классический портрет (0.75)
+    // 9:16 = вертикальное видео (0.5625)
+    // 2:3 = средний портрет (0.6667)
+    const aspectRatio = 3 / 4;
+
+    let width = video.videoWidth;
+    let height = video.videoHeight;
+
+    // Crop к нужному соотношению сторон
+    if (width / height > aspectRatio) {
+      // Видео слишком широкое - обрезаем по ширине
+      width = height * aspectRatio;
+    } else {
+      // Видео слишком высокое - обрезаем по высоте
+      height = width / aspectRatio;
+    }
+
+    canvas.width = width;
+    canvas.height = height;
 
     const context = canvas.getContext('2d');
     if (!context) return null;
 
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    // Вычисляем offset для центрирования
+    const offsetX = (video.videoWidth - width) / 2;
+    const offsetY = (video.videoHeight - height) / 2;
+
+    // Рисуем с crop'ом по центру
+    context.drawImage(
+      video,
+      offsetX, offsetY, width, height,  // Источник (crop)
+      0, 0, width, height                // Назначение (canvas)
+    );
+
+    console.log(`📸 Фото захвачено: ${width}x${height} (aspect ratio: ${aspectRatio})`);
+
     return canvas.toDataURL('image/jpeg', 0.9);
   }, []);
 
