@@ -29,35 +29,38 @@ export default function StartPage() {
   };
 
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <h1 className={styles.title}>ФОТО БУДКА</h1>
 
-      <div className={styles.content}>
-        <p className={styles.question}>Сколько фотографий хотите сделать?</p>
+      <section className={styles.content}>
+        <h2 className={styles.question}>Сколько фотографий хотите сделать?</h2>
 
-        <div className={styles.options}>
+        <div className={styles.options} role="group" aria-label="Выбор количества фотографий">
           {photoOptions.map((count) => (
             <button
               key={count}
               onClick={() => setSelectedCount(count)}
               className={`${styles.option} ${selectedCount === count ? styles.selected : ''}`}
               disabled={isCreating}
+              aria-pressed={selectedCount === count}
+              aria-label={`${count} фотографий`}
             >
               {count}
             </button>
           ))}
         </div>
 
-        {error && <p className={styles.error}>{error}</p>}
+        {error && <p className={styles.error} role="alert">{error}</p>}
 
         <button
           onClick={handleStart}
           disabled={!selectedCount || isCreating}
           className={styles.startButton}
+          aria-label="Начать фотосессию"
         >
           {isCreating ? 'СОЗДАНИЕ...' : 'НАЧАТЬ'}
         </button>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

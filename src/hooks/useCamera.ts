@@ -87,22 +87,14 @@ export default function useCamera() {
     const video = videoRef.current;
     const canvas = document.createElement('canvas');
 
-    // Aspect ratio для портретной ориентации (можно менять для экспериментов)
-    // 1:1 = квадрат (1.0)
-    // 3:4 = классический портрет (0.75)
-    // 9:16 = вертикальное видео (0.5625)
-    // 2:3 = средний портрет (0.6667)
     const aspectRatio = 1 / 1;
 
     let width = video.videoWidth;
     let height = video.videoHeight;
 
-    // Crop к нужному соотношению сторон
     if (width / height > aspectRatio) {
-      // Видео слишком широкое - обрезаем по ширине
       width = height * aspectRatio;
     } else {
-      // Видео слишком высокое - обрезаем по высоте
       height = width / aspectRatio;
     }
 
@@ -112,15 +104,13 @@ export default function useCamera() {
     const context = canvas.getContext('2d');
     if (!context) return null;
 
-    // Вычисляем offset для центрирования
     const offsetX = (video.videoWidth - width) / 2;
     const offsetY = (video.videoHeight - height) / 2;
 
-    // Рисуем с crop'ом по центру
     context.drawImage(
       video,
-      offsetX, offsetY, width, height,  // Источник (crop)
-      0, 0, width, height                // Назначение (canvas)
+      offsetX, offsetY, width, height,
+      0, 0, width, height
     );
 
     console.log(`📸 Фото захвачено: ${width}x${height} (aspect ratio: ${aspectRatio})`);

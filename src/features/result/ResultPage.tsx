@@ -79,7 +79,7 @@ export default function ResultPage({ sessionId }: Props) {
   };
 
   const handleStartOver = () => {
-    resetTheme(); // Сбрасываем тему чтобы показать WelcomeModal снова
+    resetTheme();
     router.push('/');
   };
 
