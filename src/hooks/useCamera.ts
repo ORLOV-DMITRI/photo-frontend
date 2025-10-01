@@ -88,10 +88,11 @@ export default function useCamera() {
     const canvas = document.createElement('canvas');
 
     // Aspect ratio для портретной ориентации (можно менять для экспериментов)
+    // 1:1 = квадрат (1.0)
     // 3:4 = классический портрет (0.75)
     // 9:16 = вертикальное видео (0.5625)
     // 2:3 = средний портрет (0.6667)
-    const aspectRatio = 3 / 4;
+    const aspectRatio = 1 / 1;
 
     let width = video.videoWidth;
     let height = video.videoHeight;
