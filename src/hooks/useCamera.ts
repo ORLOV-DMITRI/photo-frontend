@@ -67,6 +67,21 @@ export default function useCamera() {
     // Запускаем этот хук при первом монтировании и когда videoRef.current меняется (с null на элемент)
   }, [videoRef.current, stream, isLoading, startCamera]);
 
+  useEffect(() => {
+    if (videoRef.current && stream && !videoRef.current.srcObject) {
+      console.log('→ Присваиваем stream элементу video (отложенно)');
+      videoRef.current.srcObject = stream;
+
+      videoRef.current.onloadedmetadata = () => {
+        console.log('→ Метаданные загружены, запуск play()');
+        videoRef.current?.play().catch(e => {
+          console.error('→ Ошибка play():', e);
+          setError('Не удалось запустить воспроизведение видео. Проверьте разрешения автозапуска.');
+        });
+      };
+    }
+  }, [stream]);
+
   const stopCamera = useCallback(() => {
     if (stream) {
       stream.getTracks().forEach((track) => track.stop());
